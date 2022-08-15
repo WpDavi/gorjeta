@@ -1,6 +1,6 @@
 // importante para transformar string em number 'parseFloat'
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, View, StyleSheet, Button} from 'react-native'
 
 
@@ -21,11 +21,14 @@ export default () => {
       setTip ((pct/100) * nBill)
       
 
-    } else {
-      alert('preencha o campo')
-    }
+    } 
     
   }
+
+
+  useEffect(()=> {
+    calcular()
+  }, [pct]);
 
   return(
     <View style={{flex:1, alignItems:'center'}} >
@@ -61,7 +64,7 @@ export default () => {
       <Text> R$ {bill} </Text>
 
       <Text style={{ fontSize:20, fontWeight:'bold', marginTop:20}}> Valor da Gorjeta </Text>
-      <Text> R$ { tip.toFixed(2) } (10%) </Text>
+      <Text> R$ { tip.toFixed(2) } {`${pct}%`} </Text>
 
       <Text style={{ fontSize:20, fontWeight:'bold', marginTop:20}}> Valor Total </Text>
       <Text> R$ {(parseFloat (bill) + tip).toFixed(2) } </Text>
